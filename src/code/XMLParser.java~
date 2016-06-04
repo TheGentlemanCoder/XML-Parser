@@ -15,7 +15,6 @@ import java.util.HashMap;
 
 public class XMLParser {
 	private final static String dir = System.getProperty("user.dir");
-	private static Path filePath;
 	private static HashMap<String, Path> paths;
 	private static HashMap<String, List<String>> files;
 	
@@ -24,22 +23,51 @@ public class XMLParser {
 		files = new HashMap<>();
 	}
 	
-	public void newFile(String name, String path) {
-		paths.put(name, Paths.get(dir, path));
+	public void newFile(String fileName, String path) {
+		paths.put(fileName, Paths.get(dir, path));
 	}
 	
-	private static void toPath(String path) {
-		Path fp = Paths.get(dir, path);
-		System.out.println(fp);
-		filePath = fp;
-	}
-	
-	public static String fileToString(String name) {
+	public static String fileToString(String fileName) {
 		try {
-			byte[] encoded = Files.readAllBytes(paths.get(name));
+			byte[] encoded = Files.readAllBytes(paths.get(fileName));
 			return new String(encoded, StandardCharsets.UTF_8);
 		} catch (IOException e) {
 			return "";
 		}
+	}
+	
+	public static void parse(String fileName) {
+		String file = fileToString(fileName);
+		int first_bracket = 0;
+		int second_bracket = 0;
+		files.put(fileName, new ArrayList<>());
+		
+		for (int index = 0; index < file.length(); index++) {
+			if (file.charAt(index) == '<' && file.charAt(index + 1) == '/') {
+				first_bracket = index + 2;
+				
+				if (first_bracket - 3 > second_bracket) {
+					files.get(fileName).add(file.substring(second_bracket + 1, first_bracket - 2));
+				}
+			} else if (file.charAt(index) == '<') {
+				first_bracket = index + 1;
+			} else if (file.charAt(index) == '>') {
+				second_bracket = index;
+				
+				files.get(fileName).add(file.substring(first_bracket, second_bracket));
+			}
+		}
+	}
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
 	}
 }
