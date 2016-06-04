@@ -1,0 +1,8 @@
+<xmlversion="1.0">
+<xmlns="com.potatocode.ProjectBlanco">
+<inventory>
+	<bed>Old</bed>
+	<sheets>Still Old</sheets>
+	<pjs>Gold Plated</pjs>
+</inventory>
+<night>5</night>

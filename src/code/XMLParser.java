@@ -36,7 +36,7 @@ public class XMLParser {
 		}
 	}
 	
-	public static void parse(String fileName) {
+	public static void stringToFile(String fileName) {
 		String file = fileToString(fileName);
 		int first_bracket = 0;
 		int second_bracket = 0;
@@ -57,5 +57,6 @@ public class XMLParser {
 				files.get(fileName).add(file.substring(first_bracket, second_bracket));
 			}
 		}
-	}
+		System.out.println(files.get(fileName));
+	}	
 }
