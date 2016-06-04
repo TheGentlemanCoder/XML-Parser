@@ -16,7 +16,7 @@ import java.util.HashMap;
 public class XMLParser {
 	private final static String dir = System.getProperty("user.dir");
 	private static HashMap<String, Path> paths;
-	private static HashMap<String, List<String>> files;
+	private static HashMap<String, ArrayList<String>> files;
 	
 	public XMLParser() {
 		paths = new HashMap<>();
@@ -57,17 +57,5 @@ public class XMLParser {
 				files.get(fileName).add(file.substring(first_bracket, second_bracket));
 			}
 		}
-	}
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
 	}
 }
