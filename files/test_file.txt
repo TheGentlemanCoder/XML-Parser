@@ -1,0 +1,9 @@
+This is a text file
+More of a text file
+Test test test
+123456789
+\n\r\t\b
+!@#$%^&*()-=_+{}
+Cool.
+<xml version="1.0">
+<xmlns="com.potatocode.ProjectBlanco>

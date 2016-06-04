@@ -15,6 +15,7 @@ import java.util.HashMap;
 
 public class XMLParser {
 	private final static String dir = System.getProperty("user.dir");
+	private static Path filePath;
 	private static HashMap<String, Path> paths;
 	private static HashMap<String, List<String>> files;
 	
@@ -25,6 +26,12 @@ public class XMLParser {
 	
 	public void newFile(String name, String path) {
 		paths.put(name, Paths.get(dir, path));
+	}
+	
+	private static void toPath(String path) {
+		Path fp = Paths.get(dir, path);
+		System.out.println(fp);
+		filePath = fp;
 	}
 	
 	public static String fileToString(String name) {
