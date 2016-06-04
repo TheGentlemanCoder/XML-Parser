@@ -23,20 +23,21 @@ public class XMLParser {
 		files = new HashMap<>();
 	}
 	
-	public void newFile(String fileName, String path) {
-		paths.put(fileName, Paths.get(dir, path));
+	private static void newFile(String fileName, String pathName) {
+		paths.put(fileName, Paths.get(dir, pathName));
 	}
 	
-	public static String fileToString(String fileName) {
+	private static String fileToString(String fileName) {
 		try {
 			byte[] encoded = Files.readAllBytes(paths.get(fileName));
 			return new String(encoded, StandardCharsets.UTF_8);
 		} catch (IOException e) {
+			e.printStackTrace();
 			return "";
 		}
 	}
 	
-	public static void stringToFile(String fileName) {
+	private static void fileToList(String fileName) {
 		String file = fileToString(fileName);
 		int first_bracket = 0;
 		int second_bracket = 0;
@@ -47,7 +48,8 @@ public class XMLParser {
 				first_bracket = index + 2;
 				
 				if (first_bracket - 3 > second_bracket) {
-					files.get(fileName).add(file.substring(second_bracket + 1, first_bracket - 2));
+					files.get(fileName).add(
+					file.substring(second_bracket + 1, first_bracket - 2));
 				}
 			} else if (file.charAt(index) == '<') {
 				first_bracket = index + 1;
@@ -60,5 +62,9 @@ public class XMLParser {
 		System.out.println(files.get(fileName));
 	}
 	
-	
+	public ArrayList<String> parse(String fileName, String pathName) {
+		newFile(fileName, pathName);
+		fileToList(fileName);
+		return files.get(fileName);
+	}
 }
