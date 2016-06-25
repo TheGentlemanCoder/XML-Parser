@@ -15,29 +15,31 @@ import java.util.HashMap;
 
 public class XMLParser {
 	private final static String dir = System.getProperty("user.dir");
-	private static HashMap<String, Path> paths;
-	private static HashMap<String, ArrayList<String>> files;
+	private HashMap<String, Path> paths;
+	private HashMap<String, ArrayList<String>> files;
 	
 	public XMLParser() {
-		paths = new HashMap<>();
-		files = new HashMap<>();
+		this.paths = new HashMap<>();
+		this.files = new HashMap<>();
 	}
 	
-	private static void newFile(String fileName, String pathName) {
+	private void newFile(String fileName, String pathName) {
 		paths.put(fileName, Paths.get(dir, pathName));
 	}
 	
-	private static String fileToString(String fileName) {
+	private String fileToString(String fileName) {
 		try {
 			byte[] encoded = Files.readAllBytes(paths.get(fileName));
 			return new String(encoded, StandardCharsets.UTF_8);
 		} catch (IOException e) {
+			System.out.println("An IOException Occured");
 			e.printStackTrace();
+			System.exit(1);
 			return "";
 		}
 	}
 	
-	private static void fileToList(String fileName) {
+	private void fileToList(String fileName) {
 		String file = fileToString(fileName);
 		int first_bracket = 0;
 		int second_bracket = 0;
@@ -59,7 +61,6 @@ public class XMLParser {
 				files.get(fileName).add(file.substring(first_bracket, second_bracket));
 			}
 		}
-		System.out.println(files.get(fileName));
 	}
 	
 	public ArrayList<String> parse(String fileName, String pathName) {
